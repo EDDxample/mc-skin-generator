@@ -2,7 +2,7 @@ import pygame, sys, PIL, numpy as np, random as rng
 from pygame.locals import *
 from keras.models import load_model
 
-GENERATOR = load_model('mc-generator')
+GENERATOR = load_model('mc-generator.h5')
 NOISE = np.random.uniform(size=(1, 1, GENERATOR.get_input_shape_at(0)[2])) * 4000 - 2000
 
 def map(value, start, stop):

@@ -53,8 +53,8 @@ cb = Logger()
 
 epochs = 20
 autoencoder.fit(skins, skins, None, epochs, callbacks=[cb])
-autoencoder.save('mc-autoencoder')
-decoder.save('mc-generator')
+autoencoder.save('output/mc-autoencoder.h5')
+decoder.save('output/mc-generator.h5')
 
 
 for i in range(10):
