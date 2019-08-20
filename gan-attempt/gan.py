@@ -6,7 +6,7 @@ import os ; os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 from keras import Sequential, Model, Input
 from keras.layers import Dense, LeakyReLU, Dropout
 from keras.optimizers import Adam
-from keras.utils import load_model
+from keras.models import load_model
 
 def main(epochs=50, batch_size=128):
     skin_dataset = np.load('models/mc-skins-64x64.npy') # (5578, 16384)
