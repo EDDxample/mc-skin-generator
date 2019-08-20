@@ -11,7 +11,7 @@ from keras.models import load_model
 def main(epochs=50, batch_size=128):
     skin_dataset = np.load('models/mc-skins-64x64.npy') # (5578, 16384)
     
-    generator = load_model('models/generator_final.h5') #create_generator()
+    generator = create_generator() # load_model('models/generator_final.h5')
     discriminator = create_discriminator()
     gan = create_gan(discriminator, generator)
     
@@ -49,7 +49,7 @@ def adam_optimizer():
     return Adam(lr=0.0002, beta_1=0.5)
 
 def create_generator():
-    g = Sequential()
+    g = Sequential(name='generator')
     g.add(Dense(256, input_dim=100)) ; g.add(LeakyReLU(0.2))
     g.add(Dense(512))                ; g.add(LeakyReLU(0.2))
     g.add(Dense(1024))               ; g.add(LeakyReLU(0.2))
@@ -58,7 +58,7 @@ def create_generator():
     g.compile(optimizer=adam_optimizer(), loss='binary_crossentropy')
     return g
 def create_discriminator():
-    d = Sequential()
+    d = Sequential(name='discriminator')
     d.add(Dense(2048, input_dim=64*64*4)) ; d.add(LeakyReLU(0.2)) ; d.add(Dropout(0.3))
     d.add(Dense(1024))                    ; d.add(LeakyReLU(0.2)) ; d.add(Dropout(0.3))
     d.add(Dense(512))                     ; d.add(LeakyReLU(0.2)) ; d.add(Dropout(0.3))

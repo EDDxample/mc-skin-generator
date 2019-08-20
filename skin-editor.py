@@ -26,16 +26,11 @@ windowSurface = pygame.display.set_mode((800, 500), 0, 32)
 pygame.display.set_caption('Skin Editor')
 
 
-
-windowSurface.fill((128, 128, 150))
-
-
 dx = 300 // 10
 dy = 500 // 10
 def draw_cells():
     global NOISE
-    MIN, MAX = np.amin(NOISE), np.amax(NOISE)
-    print(MIN, MAX)
+    MIN, MAX = min(MIN,np.amin(NOISE)), max(MAX,np.amax(NOISE))
     index = 0
     for y in range(0, 500, dy):
         for x in range(500, 800, dx):
@@ -43,23 +38,27 @@ def draw_cells():
             index += 1
             pygame.draw.rect(windowSurface, (col, col, col),Rect(x, y, dx -1, dy -1))
 
-draw_cells()
-gen_pic(windowSurface)
-pygame.display.update()
+def repaint():
+    windowSurface.fill((0, 0, 0))
+    gen_pic(windowSurface)
+    draw_cells()
+    pygame.display.update()
+
+repaint()
 
 while True:
     for event in pygame.event.get():
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_r:
+                NOISE = np.random.normal(0, 1, NOISE.shape)
+                repaint()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             cellpos = ((pos[0] - 500)//dx, pos[1]//dy)
             if cellpos[0] >= 0 and cellpos[1] >= 0:
                 index = cellpos[0] + cellpos[1] * 10
-                NOISE[0,index] = rng.randint(-3, 3)
-                windowSurface.fill((0, 0, 0))
-                gen_pic(windowSurface)
-                draw_cells()
-                pygame.display.update()
+                NOISE[0,index] = np.random.normal(0, 1, 1)
+                repaint()
                 
         elif event.type == QUIT:
             pygame.quit()
