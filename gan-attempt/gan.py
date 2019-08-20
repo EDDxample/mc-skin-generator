@@ -6,11 +6,12 @@ import os ; os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 from keras import Sequential, Model, Input
 from keras.layers import Dense, LeakyReLU, Dropout
 from keras.optimizers import Adam
+from keras.utils import load_model
 
 def main(epochs=50, batch_size=128):
     skin_dataset = np.load('models/mc-skins-64x64.npy') # (5578, 16384)
     
-    generator = create_generator()
+    generator = load_model('models/generator_final.h5') #create_generator()
     discriminator = create_discriminator()
     gan = create_gan(discriminator, generator)
     
@@ -38,8 +39,10 @@ def main(epochs=50, batch_size=128):
         if e % 5 == 0:
             plot_imgs(e, generator)
             generator.save(f'output/generator_epoch_{e}.h5')
+            discriminator.save(f'output/discriminator_epoch_{e}.h5')
     plot_imgs("final", generator)
-    generator.save(f'output/generator_final.h5')
+    generator.save('output/generator_final.h5')
+    discriminator.save('output/discriminator_final.h5')
 
 
 def adam_optimizer():
