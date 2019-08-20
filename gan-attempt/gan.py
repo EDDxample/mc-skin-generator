@@ -43,7 +43,7 @@ def main(epochs=20, batch_size=128):
 
 
 def adam_optimizer():
-    return 'adam' #Adam(lr=0.0002, beta_1=0.5)
+    return Adam(lr=0.0002, beta_1=0.5)
 
 def create_generator():
     g = Sequential()
@@ -51,7 +51,7 @@ def create_generator():
     g.add(Dense(512))                ; g.add(LeakyReLU(0.2))
     g.add(Dense(1024))               ; g.add(LeakyReLU(0.2))
     g.add(Dense(2048))               ; g.add(LeakyReLU(0.2))
-    g.add(Dense(64*64*4,              activation='sigmoid'))
+    g.add(Dense(64*64*4,              activation='tanh'))
     g.compile(optimizer=adam_optimizer(), loss='binary_crossentropy')
     return g
 def create_discriminator():
