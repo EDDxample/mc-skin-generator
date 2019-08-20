@@ -5,8 +5,9 @@ import os ; os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 
 from keras import Sequential, Model, Input
 from keras.layers import Dense, LeakyReLU, Dropout
+from keras.optimizers import Adam
 
-def main(epochs=1, batch_size=128):
+def main(epochs=20, batch_size=128):
     skin_dataset = np.load('models/mc-skins-64x64.npy') # (5578, 16384)
     
     generator = create_generator()
@@ -34,12 +35,15 @@ def main(epochs=1, batch_size=128):
 
             gan.train_on_batch(X, Y)
 
-        if e % 10 == 0:
+        if e % 5 == 0:
             plot_imgs(e, generator)
-            generator.save(f'output/generator_epoch{e}.h5')
+            generator.save(f'output/generator_epoch_{e}.h5')
+    plot_imgs("final", generator)
     generator.save(f'output/generator_final.h5')
 
 
+def adam_optimizer():
+    return 'adam' #Adam(lr=0.0002, beta_1=0.5)
 
 def create_generator():
     g = Sequential()
@@ -47,8 +51,8 @@ def create_generator():
     g.add(Dense(512))                ; g.add(LeakyReLU(0.2))
     g.add(Dense(1024))               ; g.add(LeakyReLU(0.2))
     g.add(Dense(2048))               ; g.add(LeakyReLU(0.2))
-    g.add(Dense(64*64*4,              activation='sigmoid')) # Tut: tanh
-    g.compile(optimizer='adam', loss='mse') # Tut: binary_crossentropy
+    g.add(Dense(64*64*4,              activation='sigmoid'))
+    g.compile(optimizer=adam_optimizer(), loss='binary_crossentropy')
     return g
 def create_discriminator():
     d = Sequential()
@@ -57,7 +61,7 @@ def create_discriminator():
     d.add(Dense(512))                     ; d.add(LeakyReLU(0.2)) ; d.add(Dropout(0.3))
     d.add(Dense(256))                     ; d.add(LeakyReLU(0.2))
     d.add(Dense(1,                         activation='sigmoid'))
-    d.compile(optimizer='adam', loss='binary_crossentropy')
+    d.compile(optimizer=adam_optimizer(), loss='binary_crossentropy')
     return d
 def create_gan(discriminator, generator):
     discriminator.trainable = False
@@ -69,8 +73,9 @@ def create_gan(discriminator, generator):
     gan.compile(optimizer='adam', loss='binary_crossentropy')
     return gan
 
-def plot_imgs(epoch, generator, examples=100, dim=(10,10), figsize=(10,10)):
+def plot_imgs(epoch, generator, examples=4, dim=(2,2), figsize=(5,5)):
     noise= np.random.normal(loc=0, scale=1, size=[examples, 100])
+    print(noise)
     generated_images = generator.predict(noise)
     generated_images = generated_images.reshape(examples,64,64,4)
     plt.figure(figsize=figsize)
@@ -81,4 +86,4 @@ def plot_imgs(epoch, generator, examples=100, dim=(10,10), figsize=(10,10)):
     plt.tight_layout()
     plt.savefig(f'output/gan_generated_image_{epoch}.png')
 
-if __name__ == "__main__": main(20)
+if __name__ == "__main__": main()

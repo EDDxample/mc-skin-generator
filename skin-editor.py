@@ -5,7 +5,7 @@ import os ; os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 
 from keras.models import load_model
 
-GENERATOR = load_model('output/generator_epoch10.h5')
+GENERATOR = load_model('output/generator_final.h5')
 NOISE = np.random.normal(0, 1, [1, GENERATOR.get_input_shape_at(0)[-1]])
 
 def map(value, _MIN, _MAX, start, stop):
