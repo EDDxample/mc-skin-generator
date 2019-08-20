@@ -7,7 +7,7 @@ from keras import Sequential, Model, Input
 from keras.layers import Dense, LeakyReLU, Dropout
 from keras.optimizers import Adam
 
-def main(epochs=20, batch_size=128):
+def main(epochs=50, batch_size=128):
     skin_dataset = np.load('models/mc-skins-64x64.npy') # (5578, 16384)
     
     generator = create_generator()
@@ -75,7 +75,6 @@ def create_gan(discriminator, generator):
 
 def plot_imgs(epoch, generator, examples=4, dim=(2,2), figsize=(5,5)):
     noise= np.random.normal(loc=0, scale=1, size=[examples, 100])
-    print(noise)
     generated_images = generator.predict(noise)
     generated_images = generated_images.reshape(examples,64,64,4)
     plt.figure(figsize=figsize)
