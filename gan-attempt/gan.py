@@ -3,8 +3,10 @@ from keras import Sequential, Model, Input
 from keras.layers import Dense, LeakyReLU, Dropout
 
 def main():
-    create_generator().summary()
-    create_discriminator().summary()
+    generator = create_generator()
+    discriminator = create_discriminator()
+    gan = create_gan(discriminator, generator)
+    gan.summary()
 
 
 def create_generator():
@@ -27,5 +29,12 @@ def create_discriminator():
     d.compile(optimizer='adam', loss='binary_crossentropy')
     return d
 
+def create_gan(discriminator, generator):
+    gan_input = Input((100,))
+    x = generator(gan_input)
+    gan_output = discriminator(x)
+    gan = Model(gan_input, gan_output)
+    gan.compile(optimizer='adam', loss='binary_crossentropy')
+    return gan
 
 if __name__ == "__main__": main()
