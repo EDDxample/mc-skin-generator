@@ -38,8 +38,8 @@ def main(epochs=50, batch_size=128):
 
         if e % 5 == 0:
             plot_imgs(e, generator)
-            generator.save(f'output/generator_epoch_{e}.h5')
-            discriminator.save(f'output/discriminator_epoch_{e}.h5')
+            generator.save('output/generator_epoch.h5')
+            discriminator.save('output/discriminator_epoch.h5')
     plot_imgs("final", generator)
     generator.save('output/generator_final.h5')
     discriminator.save('output/discriminator_final.h5')
