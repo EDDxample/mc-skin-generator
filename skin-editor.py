@@ -7,19 +7,26 @@ from keras.models import load_model
 
 GENERATOR = load_model('output/generator_final.h5')
 NOISE = np.random.normal(0, 1, [1, GENERATOR.get_input_shape_at(0)[-1]])
+DISPLAY_LAYOUT = False
+
 
 def map(value, _MIN, _MAX, start, stop):
     return start + (stop - start) * ((value - _MIN) / (_MAX - _MIN))
 
 def gen_pic(windowSurface):
-    global GENERATOR, NOISE
+    global GENERATOR, NOISE, DISPLAY_LAYOUT
     arr = GENERATOR.predict(NOISE)
     arr = arr.reshape(int(arr.shape[-1]/256), 64, 4) * 255
     pic = PIL.Image.fromarray(arr.astype('uint8'))
-    pic.save('output/pic.png')
+    # pic.save('output/pic.png')
     surface = pygame.image.fromstring(pic.tobytes(), pic.size, 'RGBA')
     surface = pygame.transform.scale(surface, (500, 500))
     windowSurface.blit(surface, (0, 0))
+
+    if DISPLAY_LAYOUT:
+        surface = pygame.image.load('assets/skinlayout.png')
+        surface = pygame.transform.scale(surface, (500, 500))
+        windowSurface.blit(surface, (0, 0))
 
 pygame.init()
 windowSurface = pygame.display.set_mode((800, 500), 0, 32)
@@ -30,6 +37,7 @@ dx = 300 // 10
 dy = 500 // 10
 def draw_cells():
     global NOISE
+    MIN, MAX = 1000, -1000
     MIN, MAX = min(MIN,np.amin(NOISE)), max(MAX,np.amax(NOISE))
     index = 0
     for y in range(0, 500, dy):
@@ -52,6 +60,10 @@ while True:
             if event.key == pygame.K_r:
                 NOISE = np.random.normal(0, 1, NOISE.shape)
                 repaint()
+            if event.key == pygame.K_f:
+                DISPLAY_LAYOUT = not DISPLAY_LAYOUT
+                repaint()
+
         elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             cellpos = ((pos[0] - 500)//dx, pos[1]//dy)
