@@ -1,7 +1,7 @@
 import numpy as np, matplotlib.pyplot as plt
 
 # Change keras backend
-import os ; os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+import os ; os.environ["KERAS_BACKEND"] = "theano"#"plaidml.keras.backend" #"tensorflow"
 
 from keras import Sequential, Model, Input
 from keras.layers import Dense, LeakyReLU, Dropout
@@ -9,9 +9,9 @@ from keras.optimizers import Adam
 from keras.models import load_model
 
 def main(epochs=50, batch_size=128):
-    skin_dataset = np.load('models/mc-skins-64x64.npy') # (5578, 16384)
+    skin_dataset = np.load('../dataset/data.npy') # (5578, 16384)
     
-    if True: # Load models
+    if False: # Load models
         generator = load_model('output/generator_final.h5')
         discriminator= load_model('output/discriminator_final.h5')
     else:
