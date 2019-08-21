@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>404 Not found</title>
+
+	<meta name="robots" content="index,follow"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="theme-color" content="#43a047">
+	<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/lkpbokpjdbhikkdfjopoaiekpigepfjl">
+	<link rel="icon" sizes="192x192" href="https://mskins.net/google-chrome-icon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="https://mskins.net/favicon.ico">
+
+	<link rel="alternate" href="https://mskins.net/ru/skin/murzuks-W1JJn/download" hreflang="ru" />
+    <link rel="alternate" href="https://mskins.net/en/skin/murzuks-W1JJn/download" hreflang="en" />
+    <link rel="alternate" href="https://mskins.net/ua/skin/murzuks-W1JJn/download" hreflang="uk" />
+    <link rel="alternate" href="https://mskins.net/skin/murzuks-W1JJn/download" hreflang="x-default" />
+	
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+	<link rel="stylesheet" href="https://mskins.net/themes/mc/assets/css/socicon.min.css">
+	<link rel="stylesheet" href="https://mskins.net/themes/mc/assets/css/style.min.css?1.0.1">
+
+ 
+
+	<script async type="text/javascript" src="//s.luxupcdnc.com/t/pb211326.js"></script>
+	<script async type="text/javascript" src="//s.luxupcdnc.com/t/common_402.js"></script>   
+
+
+</head>
+<body class="full_bg">
+
+
+			<div class="block_404 white-text">
+    <h1>404</h1>
+    <h2>Страница не найдена</h2>
+    <p>Извините! Страница, которую вы ищете, не существует или была удалена... <a href="https://mskins.net/ru">Вернуться на главную</a>.</p>
+</div>			
+<div class="li-counter">
+<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='//www.liveinternet.ru/click' "+
+"target=_blank><img src='//counter.yadro.ru/hit?t45.15;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random()+
+"' alt='' title='LiveInternet' "+
+"border='0' width='31' height='31'><\/a>")
+//--></script><!--/LiveInternet-->
+</div><script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script>var BASEURL = "https://mskins.net/";
+var ASSETS_URL = "https://mskins.net/themes/mc/assets/";
+var userLogged = 0;
+var LANG = "ru";
+var strings = [{
+"ls_wait":"Подождите, идет поиск скина",
+"sp_to_fav":"В избранное",
+"sp_in_fav":"В избранном",
+"sp_load_more":"Показать еще",
+"submit":" Отправить",
+"loading":" Загрузка",
+"cb_сopied_to_clipboard":"скопирован в буфер обмена",
+"cb_nickname":"Ник",
+ }];</script>
+<script src="https://mskins.net/themes/mc/assets/js/clipboard.min.js"></script>
+<script src="https://mskins.net/themes/mc/assets/js/require.min.js"></script>
+<script src="https://mskins.net/themes/mc/assets/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,12 +1,14 @@
 import numpy as np
 import PIL
+# Change keras backend
+import os ; os.environ["KERAS_BACKEND"] = "theano"#"plaidml.keras.backend" #"tensorflow"
 from keras import Sequential, Model
 from keras.layers import Input, Conv2D, UpSampling2D, Flatten, Reshape, Dense
 from keras.callbacks import Callback
 from keras.utils import plot_model
 
 
-skins = np.load('mc-skins-64x64.npy')
+skins = np.load('../dataset/data.npy')
 
 
 # ========== MODEL ==========
