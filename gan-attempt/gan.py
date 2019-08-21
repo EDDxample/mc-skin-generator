@@ -11,8 +11,13 @@ from keras.models import load_model
 def main(epochs=50, batch_size=128):
     skin_dataset = np.load('models/mc-skins-64x64.npy') # (5578, 16384)
     
-    generator = create_generator() # load_model('models/generator_final.h5')
-    discriminator = create_discriminator()
+    if True: # Load models
+        generator = load_model('output/generator_final.h5')
+        discriminator= load_model('output/discriminator_final.h5')
+    else:
+        generator = create_generator()
+        discriminator = create_discriminator()
+    
     gan = create_gan(discriminator, generator)
     
     for e in range(epochs):
