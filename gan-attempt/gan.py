@@ -42,10 +42,10 @@ def main(epochs=50, batch_size=128):
             gan.train_on_batch(X, Y)
 
         if e % 5 == 0:
-            plot_imgs(e, generator)
+            plot_imgs(e, generator, discriminator)
             generator.save('output/generator_epoch.h5')
             discriminator.save('output/discriminator_epoch.h5')
-    plot_imgs("final", generator)
+    plot_imgs("final", generator, discriminator)
     generator.save('output/generator_final.h5')
     discriminator.save('output/discriminator_final.h5')
 
@@ -81,9 +81,16 @@ def create_gan(discriminator, generator):
     gan.compile(optimizer='adam', loss='binary_crossentropy')
     return gan
 
-def plot_imgs(epoch, generator, examples=4, dim=(2,2), figsize=(5,5)):
-    noise= np.random.normal(loc=0, scale=1, size=[examples, 100])
-    generated_images = generator.predict(noise)
+def plot_imgs(epoch, generator, discriminator, examples=4, dim=(2,2), figsize=(5,5)):
+    pics = []
+    while len(pics) < examples:
+        noise = np.random.normal(loc=0, scale=1, size=(1,100))
+        generated_images = generator.predict(noise)
+        output = discriminator.predict(generated_images)
+        if output[0, 0] > .6:
+            pics.append(generated_images)
+    
+    generated_images = np.array(pics)
     generated_images = generated_images.reshape(examples,64,64,4)
     plt.figure(figsize=figsize)
     for i in range(generated_images.shape[0]):
